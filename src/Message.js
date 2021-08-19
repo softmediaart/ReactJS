@@ -1,6 +1,5 @@
 import './Message.css';
 
-
 function Message({text,extraText}) {
     return (
         <div className="Message">
@@ -10,7 +9,6 @@ function Message({text,extraText}) {
         </div>
     );
 }
-
 export default Message;
 
 
