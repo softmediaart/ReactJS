@@ -1,8 +1,13 @@
 import {useEffect, useState} from "react";
 import './Counter.css';
+import {usePrevious} from "./usePrevious";
+
 
  export const Counter =() => {
     const [counter, setCounter] =  useState (0);
+
+    const prevCount = usePrevious(counter);
+    console.log(prevCount);
 
     useEffect(()=>{
        console.log('useEffects did mount');
