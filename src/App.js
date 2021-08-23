@@ -5,18 +5,19 @@ import Message from "./Message";
 import {Counter} from "./components/counter";
 import {CounterClass} from "./components/counter/counter-class/CounterClass";
 import {Form} from "./components/form/Form";
-import {MessageList} from "./components/message-list/MessageList";
 
 
 const extraText = 'My first project for';
 
-const App =()=> {
-    const [name,setName] =useState("");
+function App()  {
+    // const [name,setName] =useState("");
+    //
+    // const handleNameChange = useCallback((e) => {
+    //   setName(e.target.value);
+    // },[]);
 
-    const handleNameChange = useCallback((e) => {
-      setName(e.target.value);
-    },[]);
-
+    const [messageList, setMessageList]  = useState([]);
+    const changeMessagelist = (newMessage) => {setMessageList([...messageList,newMessage])}
 
     return (
         <div className="App">
@@ -24,11 +25,16 @@ const App =()=> {
                 <Counter />
                 <Counter />
                 <CounterClass />
-                <Form name={name} handleNameChange={handleNameChange}/>
+                {messageList.map((el,i) =>{
+                   return <div key={i}>
+                       <p>{el.authorValue}</p>
+                       <p>{el.messageValue}</p>
+                       </div>
+                })}
+                <Form changeMessagelist={changeMessagelist}/>
                 <br/>
                 <br/>
                 <br/>
-                <MessageList/>
             </header>
         </div>
     );
