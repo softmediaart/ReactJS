@@ -1,34 +1,40 @@
-import {useState} from "react";
+import {useEffect, useState, useRef} from "react";
+import {TextField} from "@material-ui/core";
 
-export const Form = () => {
+export const Form = (name) => {
 
-    const [author, setAuthor]  = useState([{authorValue:''}]);
-    const [message, setMessage]  = useState([{messageValue:''}]);
-    console.log(author);
-    console.log(message);
-
+    const [message, setMessage]  = useState({authorValue:'',messageValue:''});
 
 
     const handleAuthorChange = (e)=> {
-        setAuthor({authorValue: e.target.value});
+        setMessage({ ...setMessage, authorValue: e.target.value});
 
     }
     const handleMessageChange = (e)=> {
-        setMessage({messageValue: e.target.value});
+        setMessage({ ...setMessage, messageValue: e.target.value});
     }
 
-    const handleSubmit = (e) => {
-        alert('Автор: ' + author.authorValue +'Сообщение: ' + message.messageValue );
+    const handleSubmit = () => {
+        name.changeMessagelist(message);
+        setMessage({authorValue:'',messageValue:''});
+
 
     }
+
+    const ref = useRef(null);
+
+    useEffect(()=> {
+        ref.current?.focus();
+    },[])
+
 
     return  (
         <div>
-            <form  onSubmit={handleSubmit}>
-            <input type='text' value={author.authorValue} onChange={handleAuthorChange}/> {" "}
-            <input type='text' value={message.messageValue} onChange={handleMessageChange}/>{" "}
-            <input type="submit" value="Submit" />
-            </form>
+
+             <TextField   color='secondary' id="standard-basic" label="Standard" value={message.authorValue} onChange={handleAuthorChange} inputRef={ref} /> {" "}
+             <TextField   id="standard-basic" label="Standard" value={message.messageValue} onChange={handleMessageChange} />
+             <button onClick={handleSubmit}>Отправить</button>
+
             </div>
     );
 };
